@@ -11,5 +11,5 @@ This is the mobile stack game on the iphone and andriod done one pygame.
 ## how to use
 
 1. download everything into a file
-2. open BrandonsTetris.py and save it into the folder 
-3. run BrandonsTEtris.py
+2. open Stack.py and save it into the folder 
+3. run Stack.py
