@@ -1,12 +1,10 @@
 import pygame, random, math, sys
-import os.path
-print(os.path.isfile('KOMIKAX_.ttf')) 
+
 def createBlock(color1, color2, color3, coords):
   colors = [color1, color2, color3]
   w, h = 210, 172
   blockSurface = pygame.Surface((w, h), pygame.SRCALPHA) 
   blockSurface.fill((0,0,0,0))
-
   for i in range(len(coords)):
     pygame.draw.aalines(blockSurface, (0,0,0), True, coords[i], False)
     pygame.draw.aalines(blockSurface, colors[i], True, coords[i], False)
@@ -15,10 +13,6 @@ def createBlock(color1, color2, color3, coords):
     pygame.draw.lines(blockSurface, colors[i], True, coords[i])
     pygame.draw.lines(blockSurface, (0,0,0), True, coords[i])
     pygame.draw.lines(blockSurface, colors[i], True, coords[i])
-
-
-
-    # pygame.draw.line(blockSurface, (0,0,0), (w-1, (h - 18)/2),(w-1, h/2 + 8))
   return blockSurface
 def almostEqual(d1, d2): 
     epsilon = 10**-2
@@ -146,8 +140,7 @@ class stack(object):
         self.dropCount = 0
     if self.perfect: 
       self.perfectCount += 1
-      if self.perfectCount <30:
-        print("herere")
+      if self.perfectCount <30:pass
 
       else:
         self.perfect = False
@@ -178,16 +171,10 @@ class stack(object):
         block = self.blocks[len(self.blocks)-1]
 
         self.blocks.pop(0)
-        # for block in self.blocks:
-          # print(block.y)
+    
         self.drop = True
         
-        # for block in self.blocks:
-          # print(block.y)
-        
-        # self.turn = not(self.turn)
         if self.turn:
-          # print(block.x, block.y)
 
           x0, y0 = block.coord[1][3][0] + block.x, block.coord[1][3][1]+block.y
           x1, y1 = self.blocks[len(self.blocks)-2].x + self.blocks[len(self.blocks)-2].coord[1][3][0],self.blocks[len(self.blocks)-2].y +self.blocks[len(self.blocks)-2].coord[1][3][1]-22
@@ -260,7 +247,6 @@ class stack(object):
           dist = ((x0-x1)**2 + (y0-y1)**2)**0.5
           if (block.coord[1][0][0] + block.x) >=  (self.blocks[len(self.blocks)-2].x + self.blocks[len(self.blocks)-2].coord[0][1][0]):
             self.gameOver = True
-          # print(block.coord[1][3][0] + block.x)
           if (block.coord[0][1][0] + block.x) <= (self.blocks[len(self.blocks)-2].x + self.blocks[len(self.blocks)-2].coord[1][0][0]):
             self.gameOver = True
           if math.fabs(x0 - x1) <= 1: 
@@ -359,17 +345,10 @@ class stack(object):
   def redrawAll(self):
 
     for i in range(len(self.blocks)):
-      # print(i)
       block = self.blocks[i]
       if self.perfect and (i+2 == len(self.blocks)):
         self.drawPerfectHit()
       block.drawBlock()
-    
-    # pygame.draw.line(canvas,(0,0,0), (250, 55), (250, 100))
-
-    # pygame.draw.line(canvas,(0,0,0), (145,450), (145,450))
-
-    # pygame.draw.line(canvas,(0,0,0), (145,375), (355,375))
 
     if self.paused:
       self.drawPaused()
@@ -538,20 +517,17 @@ class game(object):
     pygame.mixer.init()
     self.count2 = 0
     while True: #game loop
-      print(self.clock.get_fps())
       self.count2 += 1
       for event in pygame.event.get():
         if event.type == pygame.QUIT: 
-          Quit()         
+          Quit()        
         if event.type == pygame.MOUSEBUTTONDOWN:    
           (x, y) = pygame.mouse.get_pos()
           self.mousePressed((x, y))      
                      
         self.keyPressed(event) #handle key down or key up in key pressed
-  
-
+    
       self.timerFired()
-
       self.redrawAll()
       self.clock.tick(self.maxFPS)
 
